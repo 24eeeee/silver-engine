@@ -20,6 +20,16 @@ df.groupby(["Pclass", "Sex"])["Survived"].value_counts(normalize=True).sort_valu
 plt.show()
 
 
+plt.figure(figsize=(8, 10))
+tempDF = df.copy()
+tempDF['Age'] = pd.cut(df["Age"], 8)
+tempDF['Age'].value_counts(sort = False, normalize = True).plot(kind = 'bar')
+plt.xlabel('Ages')
+plt.ylabel('Chance')
+plt.xticks(rotation=60)
+plt.title('Шанс выживания в зависимости от возраста')
+plt.show()
+
 sum18_1 = df[df['Age'] < 18][df['Survived'] == 1].groupby(["Age"])["Survived"].value_counts().sum()
 sum55_1 = df[df['Age'] < 55][df['Age'] >= 18][df['Survived'] == 1].groupby(["Age"])["Survived"].value_counts().sum()
 sum100_1 = df[df['Age'] >= 55][df['Survived'] == 1].groupby(["Age"])["Survived"].value_counts().sum()
